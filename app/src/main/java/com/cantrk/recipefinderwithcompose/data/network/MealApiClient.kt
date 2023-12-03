@@ -10,21 +10,21 @@ import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 
 object MealApiClient{
-    private val apiClient= HttpClient(CIO){
-        install(ContentNegotiation){
+    private val apiClient = HttpClient(CIO){
+        install(ContentNegotiation) {
             json()
         }
     }
 
-    suspend fun getRandomRecipe() : List<Meal>{
-        val url="www.themealdb.com/api/json/v1/1/random.php"
-        val response= apiClient.get(urlString = url).body() as MealResponse
+    suspend fun getRandomRecipe(): List<Meal> {
+        val url = "https://www.themealdb.com/api/json/v1/1/random.php"
+        val response = apiClient.get(url).body() as MealResponse
         return response.meals
     }
 
-    suspend fun getSearchedRecipe(query:String) : List<Meal>{
-        val url="https://www.themealdb.com/api/json/v1/1/search.php?s=$query"
-        val response= apiClient.get(urlString = url).body() as MealResponse
+    suspend fun getSearchedRecipe(query: String): List<Meal> {
+        val url = "https://www.themealdb.com/api/json/v1/1/search.php?s=$query"
+        val response = apiClient.get(url).body() as MealResponse
         return response.meals
     }
 }
